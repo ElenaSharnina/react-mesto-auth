@@ -27,10 +27,10 @@ function Login(props) {
     auth.authorize(email, password)
       .then((data) => {
         if (data.token) {
-          setEmail('');
-          setPassword('');
+          setEmail("");
+          setPassword("");
           props.handleLogin();
-          history.push('/');
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -41,7 +41,7 @@ function Login(props) {
 
   function closeInfoTooltip() {
     setIsInfoTooltipOpen(false);
-    history.push('/sign-in');
+    history.push("/sign-in");
   }
   return (
     <>

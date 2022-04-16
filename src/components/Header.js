@@ -4,7 +4,9 @@ import { Switch, Link } from "react-router-dom";
 import logo from '../logo.svg';
 
 function Header({ email, onExit }) {
+
   const [isNavBlockOpen, setIsNavBlockOpen] = React.useState(true);
+
   function handleNavClick() {
     if (isNavBlockOpen) {
       setIsNavBlockOpen(false);

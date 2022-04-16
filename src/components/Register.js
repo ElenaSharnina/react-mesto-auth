@@ -4,7 +4,6 @@ import errorPic from '../images/Union2.png';
 import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import * as auth from '../auth.js';
-
 import InfoTooltip from './InfoTooltip.js';
 
 function Register() {
@@ -17,8 +16,8 @@ function Register() {
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-
   }
+
   function handleChangePass(e) {
     setPassword(e.target.value);
   }
@@ -42,7 +41,7 @@ function Register() {
   function closeInfoTooltip() {
     setIsInfoTooltipOpen(false);
     if (isSuccess) {
-      history.push('/sign-in');
+      history.push("/sign-in");
     }
   }
   return (
