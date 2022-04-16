@@ -10,6 +10,11 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import EditProfilePopup from "./popups/EditProflePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
+import { Route, Redirect } from 'react-router-dom';
+import { Switch } from "react-router-dom";
+import Register from "./Register";
+import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 
@@ -22,6 +27,7 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -134,22 +140,40 @@ function App() {
         console.log(err);
       })
   };
+  function handleLoggedIn() {
+    setLoggedIn(true);
+  }
 
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
 
         <Header />
+        <Switch>
 
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+          <Route exact path="/">
+            {handleLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+
+
+            <ProtectedRoute
+              component={Main}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+
+            />
+          </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+        </Switch>
         <Footer />
 
         <EditProfilePopup

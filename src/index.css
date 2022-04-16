@@ -3,6 +3,9 @@
 @import url(./blocks/page/page.css);
 @import url(./blocks/page/page-js.css);
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/header/__info/header__info.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/profile/__name/profile__name.css);
 @import url(./blocks/profile/__occupation/profile__occupation.css);
@@ -45,3 +48,5 @@
 @import url(./blocks/element/__count/element__count.css);
 @import url(./blocks/element/__likes/element__likes.css);
 @import url(./blocks/element/__count/_disactive/element__count_disactive.css);
+
+@import url(./blocks/register/register.css);
