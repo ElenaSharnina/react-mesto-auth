@@ -10,11 +10,13 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import EditProfilePopup from "./popups/EditProflePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useHistory } from 'react-router-dom';
 import { Switch } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
+import * as auth from '../auth.js';
+
 
 
 
@@ -28,6 +30,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const history = useHistory();
+  const [userEmail, setUserEmail] = React.useState('');
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -140,23 +144,45 @@ function App() {
         console.log(err);
       })
   };
+
   function handleLoggedIn() {
     setLoggedIn(true);
   }
+
+  React.useEffect(() => {
+
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      auth.checkToken(token)
+        .then((data) => {
+          if (data) {
+            setUserEmail(data.data.email);
+            setLoggedIn(true);
+            history.push("/");
+          } else { console.log("error") };
+        });
+    }
+  }, []);
+
+  function handleExit() {
+    localStorage.removeItem('token');
+    history.push('/sign-in');
+  }
+
 
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
 
-        <Header />
+        <Header email={userEmail} onExit={handleExit} />
         <Switch>
 
           <Route exact path="/">
             {handleLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
 
-
             <ProtectedRoute
               component={Main}
+              loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
@@ -171,7 +197,7 @@ function App() {
             <Register />
           </Route>
           <Route path="/sign-in">
-            <Login />
+            <Login handleLogin={handleLoggedIn} />
           </Route>
         </Switch>
         <Footer />
