@@ -1,18 +1,11 @@
 import React from 'react';
-import successPic from '../images/Union.png';
-import errorPic from '../images/Union2.png';
-import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import * as auth from '../auth.js';
-import InfoTooltip from './InfoTooltip.js';
 
-function Register() {
+
+function Register({ onSubmit }) {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const history = useHistory();
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(true);
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -24,26 +17,9 @@ function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    auth.register(email, password)
-      .then((res) => {
-        if (res) {
-          setIsSuccess(true);
-          setIsInfoTooltipOpen(true);
-
-        } else {
-          setIsSuccess(false);
-          setIsInfoTooltipOpen(true);
-
-        }
-      });
+    onSubmit(email, password);
   }
-  function closeInfoTooltip() {
-    setIsInfoTooltipOpen(false);
-    if (isSuccess) {
-      history.push("/sign-in");
-    }
-  }
+
   return (
 
     <div className="register">
@@ -61,10 +37,7 @@ function Register() {
 
 
       <Link to="/sign-in"><button type="button" className="register__open-button">Уже зарегистрированы? Войти</button></Link>
-      {isSuccess ?
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeInfoTooltip} text="Вы успешно зарегистрировались!" link={successPic} /> :
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeInfoTooltip} text="Что-то пошло не так!
-      Попробуйте ещё раз." link={errorPic} />}
+
     </div>
 
   )

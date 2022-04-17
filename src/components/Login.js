@@ -31,6 +31,7 @@ function Login(props) {
           setPassword("");
           props.handleLogin();
           history.push("/");
+          window.location.reload();
         }
       })
       .catch((err) => {
