@@ -181,6 +181,7 @@ function App() {
       console.log(data);
       if (data) {
         setEmail(email);
+        setLoggedIn(true);
         history.push("/");
       } else {
         setIsSuccess(false);
@@ -213,6 +214,7 @@ function App() {
 
   function handleExit() {
     localStorage.removeItem("token");
+    setLoggedIn(false);
     history.push("/sign-in");
   }
 
