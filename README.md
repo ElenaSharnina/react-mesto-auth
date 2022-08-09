@@ -18,7 +18,8 @@
 
 ### npm run dev
 чтобы запустить его в режиме разработчика.
-
+### Используемые версии:
+`npm: 8.1.2` `react: 17.0.2` `react-router-dom: 5.2.1` 
 ## Используемые технологии:
 
 * Верстка на гридах и флексах;
@@ -41,3 +42,7 @@
 <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" title="HTML5" alt="HTML" width="40" height="40"/>&nbsp;
 <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" title="JavaScript" alt="JavaScript" width="40" height="40"/>&nbsp;
 <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="40" height="40"/>&nbsp;
+
+## Планы по доработке проекта:
+- Переписать фронтенд на 6-ю версию роутов
+- Сделать деплой на бесплатном хостинге
